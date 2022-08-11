@@ -4,6 +4,7 @@ from flask_moment import Moment
 from datetime import datetime
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 # Packages
 from config import config
@@ -14,6 +15,14 @@ bootstrap = Bootstrap()
 mail = Mail()
 moment = Moment()
 db = SQLAlchemy()
+cors = CORS(
+    app,
+    resources={
+        r"/tablespaces/*": {"origins": "*"},
+        r"/locked/*": {"origins": "*"},
+        r"/locked/*": {"inactives": "*"},
+    }
+)
 
 
 def create_app(config_name):
