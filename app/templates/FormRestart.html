@@ -1,0 +1,52 @@
+{#
+	{% extends "base.html" %}
+	{% block title %}Hello World!{% endblock %}
+	{% block head %}
+		{{ super() }}
+		<style>
+		</style>
+	{% endblock %}
+	{% block body %}
+		<h1>Hello, World!</h1>
+	{% endblock %}
+#}
+
+{#
+{% extends "base.html" %}
+{% block page_content %}
+    <form method="POST">
+        {{ form.user.label }} {{ form.user(id='my-text-field', class='esto-es-una-clase') }}
+        <br>
+        {{ form.password.label }} {{ form.password(id='my-text-field', class='esto-es-una-clase') }}
+        <br>
+        {{ form.verify_password.label }} {{ form.verify_password(id='my-text-field', class='esto-es-una-clase') }}
+        <br>
+
+        {{ form.submit() }}
+    </form>
+{% endblock %}
+#}
+
+{#
+{% import "bootstrap/wtf.html" as wtf %}
+{{ wtf.quick_form(form) }}
+#}
+
+
+
+
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Reinicio de claves SIADM{% endblock %}
+
+{%- block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/sticky-footer-navbar.css') }}" rel="stylesheet">
+{%- endblock %}
+
+{% block page_content %}
+	{{ wtf.quick_form(form, action="/restart_password", method="POST", extra_classes="form-signin jumbotron") }}
+{% endblock %} 
+

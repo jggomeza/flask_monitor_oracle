@@ -1,0 +1,58 @@
+﻿{#
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablas de la base de Datos</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 5px;
+    }
+
+    th{
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background-color: #D6EEEE;
+    }
+  </style>
+</head>
+<body>
+  <table border="1">
+    <thead>
+        {% for key, value in tablespaces.0.items() %}
+          <th>{{key}}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+      {% for tablespace in tablespaces %}
+        <tr>
+          {% for key, value in tablespace.items() %}
+            <td>{{value}}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
+#}
+
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Reinicio de claves SIADM{% endblock %}
+
+{%- block styles %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/sticky-footer-navbar.css') }}" rel="stylesheet">
+{%- endblock %}
+
+{% block page_content %}
+  <h1>Bases de datos</h1>
+{% endblock %} 

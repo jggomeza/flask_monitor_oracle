@@ -1,0 +1,97 @@
+{% extends "bootstrap/base.html" %}
+{% block head %}
+	{{ super() }}
+	<link rel="shortcut icon" href="{{ url_for('static', filename = 'img/flask.ico') }}" type="image/x-icon">
+	<link rel="icon" href="{{ url_for('static', filename = 'img/flask.ico') }}" type="image/x-icon">
+{% endblock %}
+
+{% block title %}Flask project{% endblock %}
+
+{% block body_attribs %} class="jgomeza"{% endblock body_attribs %}
+
+{% block navbar %}
+	<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">ORACLE</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!--<li class="active"><a href="#">Home</a></li>-->
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tablespaces<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/tablespaces/CYGNUS1">CYGNUS1</a></li>
+                <li><a href="/tablespaces/OSIRIS">OSIRIS</a></li>
+                <li><a href="/tablespaces/ORION2">ORION2</a></li>
+                <li><a href="/tablespaces/COFREMQ">COFREMQ</a></li>
+                <li><a href="/tablespaces/LAGUAIRA1">LAGUAIRA1</a></li>
+                <li><a href="/tablespaces/KERUX">KERUX</a></li>
+                <li><a href="/tablespaces/SENIATFE">SENIATFE</a></li>
+                <li><a href="/tablespaces/PEGASUS">PEGASUS</a></li>
+                <li><a href="/tablespaces/PERSEUS">PERSEUS</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bloqueos<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/locked/CYGNUS1">CYGNUS1</a></li>
+                <li><a href="/locked/OSIRIS">OSIRIS</a></li>
+                <li><a href="/locked/ORION2">ORION2</a></li>
+                <li><a href="/locked/COFREMQ">COFREMQ</a></li>
+                <li><a href="/locked/LAGUAIRA1">LAGUAIRA1</a></li>
+                <li><a href="/locked/KERUX">KERUX</a></li>
+                <li><a href="/locked/SENIATFE">SENIATFE</a></li>
+                <li><a href="/locked/PEGASUS">PEGASUS</a></li>
+                <li><a href="/locked/PERSEUS">PERSEUS</a></li>
+                <!--<li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>-->
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sesiones inactivas<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="/inactives/CYGNUS1">CYGNUS1</a></li>
+                <li><a href="/inactives/OSIRIS">OSIRIS</a></li>
+                <li><a href="/inactives/ORION2">ORION2</a></li>
+                <li><a href="/inactives/COFREMQ">COFREMQ</a></li>
+                <li><a href="/inactives/LAGUAIRA1">LAGUAIRA1</a></li>
+                <li><a href="/inactives/KERUX">KERUX</a></li>
+                <li><a href="/inactives/SENIATFE">SENIATFE</a></li>
+                <li><a href="/inactives/PEGASUS">PEGASUS</a></li>
+                <li><a href="/inactives/PERSEUS">PERSEUS</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+	<!-- Begin page content -->
+	<div class="container">
+		{% for message in get_flashed_messages() %}
+			<div class="alert alert-warning">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{{ message }}
+			</div>
+	 	{% endfor %}
+		{% block page_content %}{% endblock %}
+	</div>
+{% endblock %}
+
+
+{% block scripts %}
+	{{ super() }}
+	{{ moment.include_moment() }}
+{% endblock %}
