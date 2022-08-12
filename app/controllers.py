@@ -1,5 +1,5 @@
 from flask import request, flash, redirect
-import json
+import urllib.request, json
 
 # Packages
 from . import app
@@ -74,4 +74,14 @@ def inactives(dsn):
         _data = {}
     _json = json.dumps(_values)
     return _json
-        
+
+@app.route('/dolartoday')
+def dolartoday():
+    try:
+        url = "https://s3.amazonaws.com/dolartoday/data.json"
+        response = urllib.request.urlopen(url)
+        data = response.read()
+
+        return  json.loads(data)
+    except Exception as e:
+        raise Exception(e)
