@@ -20,7 +20,8 @@ cors = CORS(
     resources={
         r"/tablespaces/*": {"origins": "*"},
         r"/locked/*": {"origins": "*"},
-        r"/locked/*": {"inactives": "*"},
+        r"/inactives/*": {"origins": "*"},
+        r"/dolartoday/*": {"origins": "*"},
     }
 )
 
