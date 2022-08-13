@@ -95,7 +95,7 @@ def collection_banks():
         if not i.strip() in bank_list_recaudo:
             _data['BANCO'] = i.strip()
             _data['CANTIDAD'] = 0
-            _values.insert(len(_values)-2,_data)
+            _values.insert(len(_values)-1,_data)
             _data = {}
 
     _json = json.dumps(_values)
@@ -110,4 +110,4 @@ def dolartoday():
 
         return  json.loads(data)
     except Exception as e:
-        raise Exception(e) 
+        raise Exception(e)
