@@ -84,9 +84,10 @@ class Model(object):
         return self.connection.db_query(sql)
 
     def get_collection_banks(self):
+        # SELECT /*+ PARALLEL(mp 30) */
         sql = """SELECT 
             A.BANCO, A.CANTIDAD FROM (
-                select /*+ PARALLEL(mp 30) */
+                select 
                 BR.NOMBRE_BANCO banco,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
                 from KBLANCOA.BANCO_RECAUDA BR 
                 right join DBO.MOVIMIENTO_PAGO  partition (P_2022_Q1) mp 

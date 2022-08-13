@@ -81,21 +81,21 @@ def collection_banks():
     _data = {}
     _values = []
 
-    back=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN","TOTAL"]
-    back_list_recaudo=[]
+    bank=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN","TOTAL"]
+    bank_list_recaudo=[]
 
     for i in _model.get_collection_banks():
-        back_list_recaudo.append(i[0].strip())
+        bank_list_recaudo.append(i[0].strip())
         _data['BANCO'] = i[0]
         _data['CANTIDAD'] = i[1]
         _values.append(_data)
         _data = {}
     
-    for i in back:
-        if not i.strip() in back_list_recaudo:
+    for i in bank:
+        if not i.strip() in bank_list_recaudo:
             _data['BANCO'] = i.strip()
             _data['CANTIDAD'] = 0
-            _values.append(_data)
+            _values.insert(len(_values)-2,_data)
             _data = {}
 
     _json = json.dumps(_values)
