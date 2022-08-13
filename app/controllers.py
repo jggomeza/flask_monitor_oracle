@@ -110,4 +110,4 @@ def dolartoday():
 
         return  json.loads(data)
     except Exception as e:
-        raise Exception(e)
+        raise Exception(e) 
