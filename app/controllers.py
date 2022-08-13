@@ -75,6 +75,32 @@ def inactives(dsn):
     _json = json.dumps(_values)
     return _json
 
+@app.route('/collection')
+def collection_back():
+    _model = Model('CYGNUS1')
+    _data = {}
+    _values = []
+
+    back=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN"]
+    back_list_recaudo=[]
+
+    for i in _model.get_collection_back():
+        back_list_recaudo.append(i[0].strip())
+        _data['BANCO'] = i[0]
+        _data['CANTIDAD'] = i[1]
+        _values.append(_data)
+        _data = {}
+    
+    for i in back:
+        if not i.strip() in back_list_recaudo:
+            _data['BANCO'] = i.strip()
+            _data['CANTIDAD'] = 0
+            _values.append(_data)
+            _data = {}
+
+    _json = json.dumps(_values)
+    return _json
+
 @app.route('/dolartoday')
 def dolartoday():
     try:

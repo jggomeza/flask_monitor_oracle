@@ -22,6 +22,7 @@ cors = CORS(
         r"/locked/*": {"origins": "*"},
         r"/inactives/*": {"origins": "*"},
         r"/dolartoday/*": {"origins": "*"},
+        r"/collection/*": {"origins": "*"},
     }
 )
 

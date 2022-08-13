@@ -82,3 +82,17 @@ class Model(object):
             ((TRUNC(MOD((TO_DATE(to_char(current_timestamp, 'DD.MM.YYYY HH24:MI:SS'), 'DD.MM.YYYY HH24:MI:SS') - logon_time) * 24, 24))*60) + (TRUNC(MOD((TO_DATE(to_char(current_timestamp, 'DD.MM.YYYY HH24:MI:SS'), 'DD.MM.YYYY HH24:MI:SS') - logon_time) * (60 * 24), 60))))>=30 order by logon_time asc
         """
         return self.connection.db_query(sql)
+
+    def get_collection_back(self):
+        sql = """select 
+            BR.NOMBRE_BANCO banco,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
+            from KBLANCOA.BANCO_RECAUDA BR 
+            right join DBO.MOVIMIENTO_PAGO  partition (P_2022_Q1) mp 
+            on (BR.CODIGO_BANCO = mp.BANCO_PAGO)
+            where 
+            TRUNC(FECHA_RECAUDACION_PAGO) = TRUNC(SYSDATE) -1 
+            and ORIGEN_INFORMACION_PAGO = '32'
+            group by BR.NOMBRE_BANCO
+            order by count(2) desc
+        """
+        return self.connection.db_query(sql)
