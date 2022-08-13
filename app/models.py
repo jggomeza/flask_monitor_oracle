@@ -84,15 +84,28 @@ class Model(object):
         return self.connection.db_query(sql)
 
     def get_collection_banks(self):
-        sql = """select 
-            BR.NOMBRE_BANCO banco,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
-            from KBLANCOA.BANCO_RECAUDA BR 
-            right join DBO.MOVIMIENTO_PAGO  partition (P_2022_Q1) mp 
-            on (BR.CODIGO_BANCO = mp.BANCO_PAGO)
-            where 
-            TRUNC(FECHA_RECAUDACION_PAGO) = TRUNC(SYSDATE) -1 
-            and ORIGEN_INFORMACION_PAGO = '32'
-            group by BR.NOMBRE_BANCO
-            order by count(2) desc
+        sql = """SELECT 
+            A.BANCO, A.CANTIDAD FROM (
+                select /*+ PARALLEL(mp 30) */
+                BR.NOMBRE_BANCO banco,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
+                from KBLANCOA.BANCO_RECAUDA BR 
+                right join DBO.MOVIMIENTO_PAGO  partition (P_2022_Q1) mp 
+                on (BR.CODIGO_BANCO = mp.BANCO_PAGO)
+                where 
+                TRUNC(FECHA_RECAUDACION_PAGO) = TRUNC(SYSDATE) -1 
+                and ORIGEN_INFORMACION_PAGO = '32'
+                group by BR.NOMBRE_BANCO
+
+                union all
+
+                select
+                'TOTAL' BANCO,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
+                from KBLANCOA.BANCO_RECAUDA BR 
+                right join DBO.MOVIMIENTO_PAGO  partition (P_2022_Q1) mp 
+                on (BR.CODIGO_BANCO = mp.BANCO_PAGO)
+                where 
+                TRUNC(FECHA_RECAUDACION_PAGO) = TRUNC(SYSDATE) -1 
+                and ORIGEN_INFORMACION_PAGO = '32') A
+            ORDER BY A.CANTIDAD ASC
         """
         return self.connection.db_query(sql)
