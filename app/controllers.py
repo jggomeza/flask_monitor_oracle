@@ -76,7 +76,7 @@ def inactives(dsn):
     return _json
 
 @app.route('/collection')
-def collection_back():
+def collection_banks():
     _model = Model('CYGNUS1')
     _data = {}
     _values = []
@@ -84,7 +84,7 @@ def collection_back():
     back=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN"]
     back_list_recaudo=[]
 
-    for i in _model.get_collection_back():
+    for i in _model.get_collection_banks():
         back_list_recaudo.append(i[0].strip())
         _data['BANCO'] = i[0]
         _data['CANTIDAD'] = i[1]

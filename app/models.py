@@ -83,7 +83,7 @@ class Model(object):
         """
         return self.connection.db_query(sql)
 
-    def get_collection_back(self):
+    def get_collection_banks(self):
         sql = """select 
             BR.NOMBRE_BANCO banco,  count(mp.ID_MOVIMIENTO_PAGO) cantidad
             from KBLANCOA.BANCO_RECAUDA BR 
