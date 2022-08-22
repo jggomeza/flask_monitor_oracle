@@ -9,21 +9,25 @@ from .models import Model
 
 @app.route('/restart_password', methods=['POST'])
 def restart_password():
-    if request.values['password'] == request.values['verify_password']:
-        user=request.values['user']
-        password=request.values['password']
-        expire=True if 'expire' in request.values else False
-        locked=True if 'locked' in request.values else False
-        
-        _model = Model('KERUX')
-        _model.set_restart(user, password, expire, locked)
-        
-        flash('Clave actualizada satisfactoriamente!')
-        return redirect('restart')
+    if str(request.values['user']).lower() != 'system' and str(request.values['user']).lower() != 'sys':
+        if request.values['password'] == request.values['verify_password']:
+            user=request.values['user']
+            password=request.values['password']
+            expire=True if 'expire' in request.values else False
+            locked=True if 'locked' in request.values else False
+            
+            # _model = Model('DBA_TEST')
+            _model = Model('KERUX')
+            # _model.set_restart(user, password, expire, locked)
+            
+            flash('Clave actualizada satisfactoriamente!')
+            return redirect('restart')
+        else:
+            flash('Las contraseñas ingresadas no coinciden!')
+            return redirect('restart')
     else:
-        flash('Las contraseñas ingresadas no coinciden!')
+        flash('No puedes actualizar la clave de los usuarios (SYS o SYSTEM) por este panel!')
         return redirect('restart')
-
 @app.route('/tablespaces/<dsn>')
 def tablespaces(dsn):
     _model = Model(dsn)
