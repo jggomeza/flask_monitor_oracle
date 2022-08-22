@@ -6,7 +6,6 @@ from . import app
 from .models import Model
 
 
-
 @app.route('/restart_password', methods=['POST'])
 def restart_password():
     if str(request.values['user']).lower() != 'system' and str(request.values['user']).lower() != 'sys':
@@ -18,7 +17,7 @@ def restart_password():
             
             # _model = Model('DBA_TEST')
             _model = Model('KERUX')
-            # _model.set_restart(user, password, expire, locked)
+            _model.set_restart(user, password, expire, locked)
             
             flash('Clave actualizada satisfactoriamente!')
             return redirect('restart')
@@ -28,6 +27,7 @@ def restart_password():
     else:
         flash('No puedes actualizar la clave de los usuarios (SYS o SYSTEM) por este panel!')
         return redirect('restart')
+
 @app.route('/tablespaces/<dsn>')
 def tablespaces(dsn):
     _model = Model(dsn)
