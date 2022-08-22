@@ -1,4 +1,4 @@
-from flask import request, flash, redirect
+from flask import request, flash, redirect, Response
 import urllib.request, json
 
 # Packages
@@ -10,13 +10,19 @@ from .models import Model
 @app.route('/restart_password', methods=['POST'])
 def restart_password():
     if request.values['password'] == request.values['verify_password']:
+        user=request.values['user']
+        password=request.values['password']
         expire=True if 'expire' in request.values else False
         locked=True if 'locked' in request.values else False
+        
+        _model = Model('KERUX')
+        _model.set_restart(user, password, expire, locked)
+        
+        flash('Clave actualizada satisfactoriamente!')
         return redirect('restart')
     else:
         flash('Las contraseñas ingresadas no coinciden!')
         return redirect('restart')
-
 
 @app.route('/tablespaces/<dsn>')
 def tablespaces(dsn):
@@ -109,5 +115,14 @@ def dolartoday():
         data = response.read()
 
         return  json.loads(data)
+    except Exception as e:
+        raise Exception(e)
+
+@app.route('/tcseniat')
+def tcseniat():
+    try:
+        link = "https://tcseniat.extra.bcv.org.ve/tcseniat/resources/TipoCambio/fechaOperacion"
+        xml = urllib.request.urlopen(link)      # hace la petición al link del xml
+        return  Response(xml, mimetype='text/xml')
     except Exception as e:
         raise Exception(e)

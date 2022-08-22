@@ -110,3 +110,15 @@ class Model(object):
             ORDER BY A.CANTIDAD ASC
         """
         return self.connection.db_query(sql)
+
+    def set_restart(self, user, password, expire, locked):
+        if expire and locked:
+            sql=f'ALTER USER %s IDENTIFIED BY "%s" PASSWORD EXPIRE ACCOUNT LOCK' % (user, password)
+        elif expire:
+            sql=f'ALTER USER %s IDENTIFIED BY "%s" PASSWORD EXPIRE' % (user, password)
+        elif locked:
+            sql=f'ALTER USER %s IDENTIFIED BY "%s" ACCOUNT LOCK' % (user, password)
+        else:
+            sql=f'ALTER USER %s IDENTIFIED BY "%s" ACCOUNT UNLOCK' % (user, password)
+
+        self.connection.db_query(sql)
