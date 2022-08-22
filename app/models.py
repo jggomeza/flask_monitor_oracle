@@ -120,4 +120,5 @@ class Model(object):
             sql=f'ALTER USER %s IDENTIFIED BY "%s" ACCOUNT LOCK' % (user, password)
         else:
             sql=f'ALTER USER %s IDENTIFIED BY "%s" ACCOUNT UNLOCK' % (user, password)
+
         self.connection.db_query(sql)
