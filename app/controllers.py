@@ -10,9 +10,9 @@ from .models import Model
 
 @app.route('/restart_password', methods=['POST'])
 def restart_password():
-    if str(request.values['user']).lower() != 'system' and str(request.values['user']).lower() != 'sys':
+    if str(request.values['user'].strip()).lower() != 'system' and str(request.values['user'].strip()).lower() != 'sys':
         if request.values['password'] == request.values['verify_password']:
-            user=request.values['user']
+            user=request.values['user'].strip()
             password=request.values['password']
             expire=True if 'expire' in request.values else False
             locked=True if 'locked' in request.values else False
