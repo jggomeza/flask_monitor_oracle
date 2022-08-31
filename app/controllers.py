@@ -19,7 +19,7 @@ def restart_password():
             
             # _model = Model('DBA_TEST')
             _model = Model('KERUX')
-            _model.set_restart(user, password, expire, locked)
+            _model.set_restart(user.upper(), password.upper(), expire, locked)
             
             flash('Clave actualizada satisfactoriamente!')
             return redirect('restart')
