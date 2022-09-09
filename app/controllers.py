@@ -1,7 +1,9 @@
 from flask import request, flash, redirect, Response
 import urllib.request, json
+import requests
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
+
 
 # Packages
 from . import app
@@ -132,3 +134,10 @@ def tcseniat():
         return  Response(xml, mimetype='text/xml')
     except Exception as e:
         raise Exception(e)
+
+@app.route('/telegram/<token>/<chat_id>/<text>')
+def telegram(token, chat_id, text):
+    url = f'https://api.telegram.org/bot{token}/sendMessage'
+    data = {"chat_id": chat_id, "text": text}
+    send=requests.post(url, json=data)
+    return send.text
