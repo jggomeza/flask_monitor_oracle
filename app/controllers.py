@@ -139,5 +139,5 @@ def tcseniat():
 def telegram(token, chat_id, text):
     url = f'https://api.telegram.org/bot{token}/sendMessage'
     data = {"chat_id": chat_id, "text": text}
-    send=requests.post(url, json=data)
+    send=requests.post(url, json=data, verify=False)
     return send.text
