@@ -141,3 +141,53 @@ def telegram(token, chat_id, text):
     data = {"chat_id": chat_id, "text": text}
     send=requests.post(url, json=data, verify=False)
     return send.text
+
+@app.route('/ist_banks_status')
+def ist_banks_status():
+    _model = Model('OSIRIS')
+    _data = {}
+    _values = []
+
+    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN"}
+
+
+    TOTAL_MONTO_BS_IST=0
+    CANTIDAD_PLANILLAS_IST=0
+    CANTIDAD_PLANILLAS_BCO=0
+    TOTAL_MONTO_BS_BCO=0
+
+    for i in _model.get_status_banks_ist():
+        _data['BANCO'] = bank[i[0]]
+        _data['ESTADO'] = i[1]
+        _data['FECHA_PROCESO'] = str(i[2])[:10]
+        _data['FECHA_ESTADO'] = str(i[3])[:10]
+        _data['HORA_ESTADO'] = str(i[4])[:2]+':'+str(i[4])[2:4]+':'+str(i[4])[4:6]
+        _data['CANTIDAD_PLANILLAS_IST'] = i[5]
+        _data['TOTAL_MONTO_BS_IST'] = i[6]
+        _data['CANTIDAD_PLANILLAS_BCO'] = i[7]
+        _data['TOTAL_MONTO_BS_BCO'] = float(i[8])
+
+        FECHA_PROCESO=str(i[2])[:10]
+        FECHA_ESTADO=str(i[3])[:10]
+        CANTIDAD_PLANILLAS_IST+=int(i[5])
+        TOTAL_MONTO_BS_IST+=float(i[6])
+        CANTIDAD_PLANILLAS_BCO+=int(i[7])
+        TOTAL_MONTO_BS_BCO+=int(i[8])
+
+        _values.append(_data)
+        _data = {}
+
+    _values.append({
+        'BANCO':'TOTAL',
+        'ESTADO':'',
+        'FECHA_PROCESO':FECHA_PROCESO,
+        'FECHA_ESTADO':FECHA_ESTADO,
+        'HORA_ESTADO':'',
+        'CANTIDAD_PLANILLAS_IST':CANTIDAD_PLANILLAS_IST,
+        'TOTAL_MONTO_BS_IST':TOTAL_MONTO_BS_IST,
+        'CANTIDAD_PLANILLAS_BCO':CANTIDAD_PLANILLAS_BCO,
+        'TOTAL_MONTO_BS_BCO':TOTAL_MONTO_BS_BCO,
+    })
+
+    _json = json.dumps(_values)
+    return _json
