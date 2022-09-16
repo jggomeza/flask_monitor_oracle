@@ -163,7 +163,7 @@ def ist_banks_status():
         _data['FECHA_ESTADO'] = str(i[3])[:10]
         _data['HORA_ESTADO'] = str(i[4])[:2]+':'+str(i[4])[2:4]+':'+str(i[4])[4:6]
         _data['CANTIDAD_PLANILLAS_IST'] = i[5]
-        _data['TOTAL_MONTO_BS_IST'] = i[6]
+        _data['TOTAL_MONTO_BS_IST'] = float(i[6])
         _data['CANTIDAD_PLANILLAS_BCO'] = i[7]
         _data['TOTAL_MONTO_BS_BCO'] = float(i[8])
 
@@ -172,7 +172,7 @@ def ist_banks_status():
         CANTIDAD_PLANILLAS_IST+=int(i[5])
         TOTAL_MONTO_BS_IST+=float(i[6])
         CANTIDAD_PLANILLAS_BCO+=int(i[7])
-        TOTAL_MONTO_BS_BCO+=int(i[8])
+        TOTAL_MONTO_BS_BCO+=float(i[8])
 
         _values.append(_data)
         _data = {}
