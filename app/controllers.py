@@ -177,17 +177,17 @@ def ist_banks_status():
         _values.append(_data)
         _data = {}
 
-    _values.append({
-        'BANCO':'TOTAL',
-        'ESTADO':'',
-        'FECHA_PROCESO':FECHA_PROCESO,
-        'FECHA_ESTADO':FECHA_ESTADO,
-        'HORA_ESTADO':'',
-        'CANTIDAD_PLANILLAS_IST':CANTIDAD_PLANILLAS_IST,
-        'TOTAL_MONTO_BS_IST':TOTAL_MONTO_BS_IST,
-        'CANTIDAD_PLANILLAS_BCO':CANTIDAD_PLANILLAS_BCO,
-        'TOTAL_MONTO_BS_BCO':TOTAL_MONTO_BS_BCO,
-    })
+    # _values.append({
+    #     'BANCO':'TOTAL',
+    #     'ESTADO':'',
+    #     'FECHA_PROCESO':FECHA_PROCESO,
+    #     'FECHA_ESTADO':FECHA_ESTADO,
+    #     'HORA_ESTADO':'',
+    #     'CANTIDAD_PLANILLAS_IST':CANTIDAD_PLANILLAS_IST,
+    #     'TOTAL_MONTO_BS_IST':TOTAL_MONTO_BS_IST,
+    #     'CANTIDAD_PLANILLAS_BCO':CANTIDAD_PLANILLAS_BCO,
+    #     'TOTAL_MONTO_BS_BCO':TOTAL_MONTO_BS_BCO,
+    # })
 
     _json = json.dumps(_values)
     return _json
