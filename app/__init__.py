@@ -18,13 +18,16 @@ db = SQLAlchemy()
 cors = CORS(
     app,
     resources={
-        r"/tablespaces/*": {"origins": "*"},
-        r"/locked/*": {"origins": "*"},
-        r"/inactives/*": {"origins": "*"},
-        r"/collection/*": {"origins": "*"},
-        r"/dolartoday/*": {"origins": "*"},
-        r"/tcseniat/*": {"origins": "*"},
-        r"/telegram/*": {"origins": "*"},
+        r"/*": {"origins": "*"},
+        # r"/tablespaces/*": {"origins": "*"},
+        # r"/locked/*": {"origins": "*"},
+        # r"/inactives/*": {"origins": "*"},
+        # r"/collection/*": {"origins": "*"},
+        # r"/dolartoday/*": {"origins": "*"},
+        # r"/tcseniat/*": {"origins": "*"},
+        # r"/telegram/*": {"origins": "*"},
+        # r"/ist_banks_status/*": {"origins": "*"},
+        # r"/ist_banks_status_yesterday/*": {"origins": "*"},
     }
 )
 
