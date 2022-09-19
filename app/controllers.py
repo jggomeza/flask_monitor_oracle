@@ -161,9 +161,13 @@ def ist_banks_status():
 
     for i in _model.get_status_banks_ist():
         _data['BANCO'] = bank[i[0]]
-        command=f'zabbix_get -k {ports_banks[i[0]]} -s 172.16.28.95 -p 10050'
-        result=subprocess.check_output(command, shell=True)
-        _data['ESTADO_PORT'] = ports_banks_status[str(result.decode('utf-8')).rstrip("\n")]
+        try:
+            command=f'zabbix_get -k {ports_banks[i[0]]} -s 172.16.28.95 -p 10050'
+            result=subprocess.check_output(command, shell=True)
+            _data['ESTADO_PORT'] = ports_banks_status[str(result.decode('utf-8')).rstrip("\n")]
+        except Exception as e:
+            _data['ESTADO_PORT'] = None
+    
         _data['ESTADO'] = status[str(i[1])]
         _data['FECHA_PROCESO'] = str(i[2])[:10]
         _data['FECHA_ESTADO'] = str(i[3])[:10]
@@ -173,12 +177,12 @@ def ist_banks_status():
         _data['CANTIDAD_PLANILLAS_BCO'] = i[7]
         _data['TOTAL_MONTO_BS_BCO'] = float(i[8])
 
-        FECHA_PROCESO=str(i[2])[:10]
-        FECHA_ESTADO=str(i[3])[:10]
-        CANTIDAD_PLANILLAS_IST+=int(i[5])
-        TOTAL_MONTO_BS_IST+=float(i[6])
-        CANTIDAD_PLANILLAS_BCO+=int(i[7])
-        TOTAL_MONTO_BS_BCO+=float(i[8])
+        # FECHA_PROCESO=str(i[2])[:10]
+        # FECHA_ESTADO=str(i[3])[:10]
+        # CANTIDAD_PLANILLAS_IST+=int(i[5])
+        # TOTAL_MONTO_BS_IST+=float(i[6])
+        # CANTIDAD_PLANILLAS_BCO+=int(i[7])
+        # TOTAL_MONTO_BS_BCO+=float(i[8])
 
         _values.append(_data)
         _data = {}
