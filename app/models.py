@@ -115,7 +115,7 @@ class Model(object):
         if expire and locked:
             sql=f'ALTER USER %s IDENTIFIED BY "%s" PASSWORD EXPIRE ACCOUNT LOCK' % (user, password)
         elif expire:
-            sql=f'ALTER USER %s IDENTIFIED BY "%s" PASSWORD EXPIRE' % (user, password)
+            sql=f'ALTER USER %s IDENTIFIED BY "%s" PASSWORD EXPIRE ACCOUNT UNLOCK' % (user, password)
         elif locked:
             sql=f'ALTER USER %s IDENTIFIED BY "%s" ACCOUNT LOCK' % (user, password)
         else:
