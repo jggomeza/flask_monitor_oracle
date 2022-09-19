@@ -24,6 +24,7 @@ cors = CORS(
         r"/collection/*": {"origins": "*"},
         r"/dolartoday/*": {"origins": "*"},
         r"/tcseniat/*": {"origins": "*"},
+        r"/telegram/*": {"origins": "*"},
     }
 )
 
