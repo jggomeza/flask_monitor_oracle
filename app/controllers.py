@@ -158,8 +158,11 @@ def ist_banks_status():
     CANTIDAD_PLANILLAS_IST=0
     CANTIDAD_PLANILLAS_BCO=0
     TOTAL_MONTO_BS_BCO=0
+    j=1
 
     for i in _model.get_status_banks_ist():
+        _data['ID'] = j
+        j+=1
         _data['BANCO'] = bank[i[0]]
         try:
             command=f'zabbix_get -k {ports_banks[i[0]]} -s 172.16.28.95 -p 10050'
