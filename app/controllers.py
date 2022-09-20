@@ -1,4 +1,8 @@
 from flask import request, flash, redirect, Response
+from flask import Flask, jsonify, make_response
+from functools import wraps
+import uuid
+import jwt
 import urllib.request, json
 import requests
 import subprocess
@@ -10,6 +14,28 @@ ssl._create_default_https_context = ssl._create_unverified_context
 from . import app
 from .models import Model
 
+
+def token_required(f):
+    @wraps(f)
+    def decorator(*args, **kwargs):
+        token = None
+        if 'x-access-tokens' in request.headers:
+            token = request.headers['x-access-tokens']
+
+        if not token:
+            return jsonify({'message': 'Falta un token válido'})
+        try:
+            data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
+        except:
+            return jsonify({'message': 'Token es invalido'})
+
+        return f(*args, **kwargs)
+    return decorator
+
+@app.route('/token', methods=['POST'])
+def login_user():
+    token = jwt.encode({'public_id' : str(uuid.uuid4())}, app.config['SECRET_KEY'], "HS256")
+    return jsonify({'token' : token})
 
 @app.route('/restart_password', methods=['POST'])
 def restart_password():
@@ -34,6 +60,7 @@ def restart_password():
         return redirect('restart')
 
 @app.route('/tablespaces/<dsn>')
+@token_required
 def tablespaces(dsn):
     _model = Model(dsn)
     _data = {}
@@ -48,6 +75,7 @@ def tablespaces(dsn):
     return _json
 
 @app.route('/locked/<dsn>')
+@token_required
 def locked(dsn):
     _model = Model(dsn)
     _data = {}
@@ -71,6 +99,7 @@ def locked(dsn):
     return _json
 
 @app.route('/inactives/<dsn>')
+@token_required
 def inactives(dsn):
     _model = Model(dsn)
     _data = {}
@@ -91,6 +120,7 @@ def inactives(dsn):
     return _json
 
 @app.route('/collection')
+@token_required
 def collection_banks():
     _model = Model('CYGNUS1')
     _data = {}
@@ -117,6 +147,7 @@ def collection_banks():
     return _json
 
 @app.route('/dolartoday')
+@token_required
 def dolartoday():
     try:
         url = "https://s3.amazonaws.com/dolartoday/data.json"
@@ -128,6 +159,7 @@ def dolartoday():
         raise Exception(e)
 
 @app.route('/tcseniat')
+@token_required
 def tcseniat():
     try:
         link = "https://tcseniat.extra.bcv.org.ve/tcseniat/resources/TipoCambio/fechaOperacion"
@@ -144,6 +176,7 @@ def telegram(token, chat_id, text):
     return send.text
 
 @app.route('/ist_banks_status')
+@token_required
 def ist_banks_status():
     _model = Model('OSIRIS')
     _data = {}
@@ -206,6 +239,7 @@ def ist_banks_status():
     return _json
 
 @app.route('/ist_banks_status_yesterday')
+@token_required
 def ist_banks_status_yesterday():
     _model = Model('OSIRIS')
     _data = {}
