@@ -33,7 +33,7 @@ def token_required(f):
     return decorator
 
 @app.route('/token', methods=['POST'])
-def login_user():
+def token():
     token = jwt.encode({'public_id' : str(uuid.uuid4())}, app.config['SECRET_KEY'], "HS256")
     return jsonify({'token' : token})
 
