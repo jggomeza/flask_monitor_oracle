@@ -41,7 +41,7 @@ class Model(object):
 
     def get_locked(self):
         sql = """SELECT DISTINCT
-            SID,
+            s.SID,
             SERIAL#,
             ORACLE_USERNAME,
             OS_USER_NAME,
@@ -52,12 +52,12 @@ class Model(object):
             OWNER,
             OBJECT_NAME,
             OBJECT_TYPE
-        FROM v$session s 
+        FROM v$session s
           inner join v$locked_object lo
             on lo.PROCESS=s.PROCESS
           inner join v$lock l
             on l.LMODE=lo.LOCKED_MODE
-          inner join dba_objects do 
+          inner join dba_objects do
             on do.OBJECT_ID=lo.OBJECT_ID
         WHERE s.sid=l.sid
           and (l.block=0 or l.block=1 and l.ctime/60>=10)

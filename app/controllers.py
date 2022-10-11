@@ -238,6 +238,41 @@ def ist_banks_status():
     _json = json.dumps(_values)
     return _json
 
+@app.route('/ist_banks_status2')
+@token_required
+def ist_banks_status2():
+    _model = Model('OSIRIS')
+    _data = {}
+    _values = []
+
+    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN"}
+    status={"O":"Open","C":"Close con (0500)","P":"Pendiente con (0500)","M":"Close (No Coinciden) después de cierre Batch Upload"}
+
+    TOTAL_MONTO_BS_IST=0
+    CANTIDAD_PLANILLAS_IST=0
+    CANTIDAD_PLANILLAS_BCO=0
+    TOTAL_MONTO_BS_BCO=0
+    j=1
+
+    for i in _model.get_status_banks_ist():
+        _data['ID'] = j
+        j+=1
+        _data['BANCO'] = bank[i[0]]
+        _data['ESTADO'] = status[str(i[1])]
+        _data['FECHA_PROCESO'] = str(i[2])[:10]
+        _data['FECHA_ESTADO'] = str(i[3])[:10]
+        _data['HORA_ESTADO'] = str(i[4])[:2]+':'+str(i[4])[2:4]+':'+str(i[4])[4:6]
+        _data['CANTIDAD_PLANILLAS_IST'] = i[5]
+        _data['TOTAL_MONTO_BS_IST'] = float(i[6])
+        _data['CANTIDAD_PLANILLAS_BCO'] = i[7]
+        _data['TOTAL_MONTO_BS_BCO'] = float(i[8])
+
+        _values.append(_data)
+        _data = {}
+
+    _json = json.dumps(_values)
+    return _json
+
 @app.route('/ist_banks_status_yesterday')
 @token_required
 def ist_banks_status_yesterday():
