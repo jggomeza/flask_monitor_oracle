@@ -126,7 +126,7 @@ def collection_banks():
     _data = {}
     _values = []
 
-    bank=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN","TOTAL"]
+    bank=["BANCO DE VENEZUELA","BANCO DEL TESORO","BICENTENARIO","BANESCO","BANCO PROVINCIAL","BANCO MERCANTIL","BNC","BANCAMIGA","BANCO EXTERIOR","BANCO ACTIVO","BANCO SOFITASA","BANCO CARONI","BCV","100% BANCO","BOD","FONDO COMUN", "BANCRECER", "BANPLUS","TOTAL"]
     bank_list_recaudo=[]
 
     for i in _model.get_collection_banks():
@@ -182,7 +182,7 @@ def ist_banks_status():
     _data = {}
     _values = []
 
-    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN"}
+    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN","168":"BANCRECER","174":"BANPLUS"}
     status={"O":"Open","C":"Close con (0500)","P":"Pendiente con (0500)","M":"Close (No Coinciden) después de cierre Batch Upload"}
     ports_banks={"102":"venezuela","163":"tesoro","175":"bicentenario","134":"banesco","108":"provincial","105":"mercantil","191":"bnc","172":"bancamiga","115":"exterior","171":"activo","137":"sofitasa","128":"caroni","001":"centralvzla","156":"100x100banco","116":"occidental","151":"fondoComun"}
     ports_banks_status={"0":"CAIDO","1":"ACTIVO EN ESPERA","2":"TRANSMITIENDO..."}
@@ -245,7 +245,7 @@ def ist_banks_status2():
     _data = {}
     _values = []
 
-    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN"}
+    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN","168":"BANCRECER","174":"BANPLUS"}
     status={"O":"Open","C":"Close con (0500)","P":"Pendiente con (0500)","M":"Close (No Coinciden) después de cierre Batch Upload"}
 
     TOTAL_MONTO_BS_IST=0
@@ -280,7 +280,7 @@ def ist_banks_status_yesterday():
     _data = {}
     _values = []
 
-    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN"}
+    bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN","168":"BANCRECER","174":"BANPLUS"}
     status={"O":"Open","C":"Close con (0500)","P":"Pendiente con (0500)","M":"Close (No Coinciden) después de cierre Batch Upload"}
 
 
