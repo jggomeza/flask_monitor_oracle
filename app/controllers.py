@@ -184,7 +184,7 @@ def ist_banks_status():
 
     bank={"102":"BANCO DE VENEZUELA","163":"BANCO DEL TESORO","175":"BICENTENARIO","134":"BANESCO","108":"BANCO PROVINCIAL","105":"BANCO MERCANTIL","191":"BNC","172":"BANCAMIGA","115":"BANCO EXTERIOR","171":"BANCO ACTIVO","137":"BANCO SOFITASA","128":"BANCO CARONI","001":"BCV","156":"100% BANCO","116":"BOD","151":"FONDO COMUN","168":"BANCRECER","174":"BANPLUS"}
     status={"O":"Open","C":"Close con (0500)","P":"Pendiente con (0500)","M":"Close (No Coinciden) después de cierre Batch Upload"}
-    ports_banks={"102":"venezuela","163":"tesoro","175":"bicentenario","134":"banesco","108":"provincial","105":"mercantil","191":"bnc","172":"bancamiga","115":"exterior","171":"activo","137":"sofitasa","128":"caroni","001":"centralvzla","156":"100x100banco","116":"occidental","151":"fondoComun"}
+    ports_banks={"102":"venezuela","163":"tesoro","175":"bicentenario","134":"banesco","108":"provincial","105":"mercantil","191":"bnc","172":"bancamiga","115":"exterior","171":"activo","137":"sofitasa","128":"caroni","001":"centralvzla","156":"100x100banco","116":"occidental","151":"fondoComun","168":"bancrecer","174":"banplus"}
     ports_banks_status={"0":"CAIDO","1":"ACTIVO EN ESPERA","2":"TRANSMITIENDO..."}
 
     TOTAL_MONTO_BS_IST=0
